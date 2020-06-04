@@ -6,8 +6,11 @@ import math
 # process_step заменить на несколько обработчиков
 
 
-file = open("data.txt", 'w')                                    # файл с данными пользователей
-file.close()
+# file = open("data.txt", 'w')                                  # файл с данными пользователей
+# file.close()
+doc = open("/home/lex/programs/python/telegram_bot/data.txt", 'rb+')
+# doc = open("data.txt", 'a+')
+# doc.write("aaa")
 
 API_TOKEN = "**********************************************"    # токен бота
 
@@ -35,14 +38,14 @@ get_text()
 '''
 
 
-@bot.message_handler(commands=['**********************'])      
+@bot.message_handler(commands=['***'])
 def file_output(message):                                      # функция help с описанием возможностей
     # get_text()
+    # doc.close()
     chat_id = message.chat.id
-    doc = open("data.txt", 'rb')
-    msg = bot.reply_to(message, fileText)
+    # msg = bot.reply_to(message, fileText)
     bot.send_document(chat_id, doc)
-    bot.send_document(chat_id, "FILEID") 
+    # bot.send_document(chat_id, "FILEID") 
 
 
 @bot.message_handler(commands=['start'])
@@ -69,9 +72,7 @@ def register_function(message):
 def register_set(message):                                      # функция обработки паралели и класса при регистрации
     chat_id = message.chat.id
     msg = bot.reply_to(message, chat_id)
-    file = open("data.txt", "w")
-    file.write(str(chat_id))
-    file.close()
+    doc.write(str(chat_id))
     try:
         class_num = float(message.text)
     except BaseException:
@@ -90,7 +91,7 @@ def process_step(message):                                      # функция
     # else:
         # func2()
 bot.polling()
-# file.close()
+doc.close()
 
 
 '''
