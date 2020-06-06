@@ -3,14 +3,6 @@ from telebot import types
 import math
 
 # список команд: send, register, start, help
-# process_step заменить на несколько обработчиков
-
-
-# file = open("data.txt", 'w')                                  # файл с данными пользователей
-# file.close()
-doc = open("/home/lex/programs/python/telegram_bot/data.txt", 'rb+')
-# doc = open("data.txt", 'a+')
-# doc.write("aaa")
 
 API_TOKEN = "**********************************************"    # токен бота
 
@@ -39,19 +31,14 @@ get_text()
 
 
 @bot.message_handler(commands=['***'])
-def file_output(message):                                      # функция help с описанием возможностей
-    # get_text()
-    # doc.close()
+def file_output(message):
     chat_id = message.chat.id
-    # msg = bot.reply_to(message, fileText)
     bot.send_document(chat_id, doc)
-    # bot.send_document(chat_id, "FILEID") 
 
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):                                      # приветственная функция 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True) # one_time_keyboard=True)
-    # markup.add(text1, text2, text3) 
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add(text1, text3) 
     msg = bot.reply_to(message, meetingText, reply_markup=markup)
     bot.register_next_step_handler(msg, process_step)
@@ -77,36 +64,11 @@ def register_set(message):                                      # функция
         class_num = float(message.text)
     except BaseException:
         msg = bot.reply_to(message, errorText)
-        # bot.register_next_step_handler(msg)
-    # if message.text==text1:
-        # func1()
-    # else:
-        # func2()
 
 
 def process_step(message):                                      # функция обработки кастомной клавиатуры бота
     chat_id = message.chat.id
-    # if message.text==text1:
-        # func1()
-    # else:
-        # func2()
-bot.polling()
+
+
 doc.close()
-
-
-'''
-старый и бесполезный код
-
-import telebot
-
-bot = telebot.TeleBot("1219283344:AAHNXmHuA8MltzpFJ5CLsPLaU5zMitTxN4o")
-
-keyboard1 = telebot.types.ReplyKeyboardMarkup()
-keyboard1.row('send', 'изменить данные учетной записи')
-
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
-
 bot.polling()
-'''
