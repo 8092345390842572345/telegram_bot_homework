@@ -1,14 +1,15 @@
 import sqlite3
 
-conn = sqlite3.connect('dateBase.sqlite')
+conn = sqlite3.connect('dateBase.db')
 cursor = conn.cursor()
+# conn.row_factory = sqlite3.Row
 
 # it works. As a useless code
 
 reregRequest = """
     UPDATE userData 
-    SET uClass = '?' 
-    WHERE uId = '?'
+    SET uClass = ? 
+    WHERE uId = ?
 """
 
 regRequest = """
@@ -22,6 +23,7 @@ def intilisation():
         cursor.execute("""CREATE TABLE userData
                     (uId text, 
                     uClass text)""")
+        cursor.commit()
     except BaseException:  # couse I don't know how to fix it
         print("base hasn't created. It can already exist or this code sucks")
 
@@ -29,18 +31,25 @@ def intilisation():
 # help me please
 
 def reg(uId, uClass):
-    try:
-        print("1")
-        cursor.execute(reregRequest, (uClass, uId))
-        conn.commit()
-        print("rereg")
-    except BaseException:
-        print("2")
-        cursor.execute(regRequest, (uClass, uId))
-        print("reg")
+    cursor.execute("SELECT * FROM userData")
+    l1 = cursor.fetchall()
+    print("1")
+    cursor.execute(reregRequest, (uClass,uId))
     conn.commit()
+    print("rereg")
+    cursor.execute("SELECT * FROM userData")
+    l2 = cursor.fetchall()
+
+    if l1 == l2:
+        print("2")
+        cursor.execute(regRequest, (uId, uClass))
+        conn.commit()
+        print("reg")
 
 # fuck this code
 
 intilisation()
-reg("12", "2")
+reg('id4', 'class2')
+cursor.execute("SELECT * FROM userData")
+print (cursor.fetchall())
+conn.close()
