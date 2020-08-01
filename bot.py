@@ -35,7 +35,11 @@ def send_welcome(message):                                      # приветс
 @bot.message_handler(commands=['send'])
 def send(message):                                      # функция получения сообщения
     msg = bot.reply_to(message, sendText)
-    @bot.message_handler(content_types=['photo'])
+    bot.register_next_step_handler(msg, send_set)
+
+
+def send_set(message):
+    chat.id = message.chat.id
     doc = open("hw.jpeg", "a+")
     doc.write(message)
     doc.close()
