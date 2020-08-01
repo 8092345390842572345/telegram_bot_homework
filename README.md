@@ -6,8 +6,10 @@ how to use:
 dependencies:
   python3
   telegramBotAPI
+  sqlite3
   meth
   
 plan:
   normal registration
   sending files
+  become ultra popular
