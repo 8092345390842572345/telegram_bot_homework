@@ -33,10 +33,10 @@ def send_welcome(message):                                      # приветс
 
 
 @bot.message_handler(commands=['send'])
-def send(message):
+def send(message):                                      # функция получения сообщения
     msg = bot.reply_to(message, sendText)
     @bot.message_handler(content_types=['photo'])
-    doc = open("hw.jpeg")
+    doc = open("hw.jpeg", "a+")
     doc.write(message)
     doc.close()
 
