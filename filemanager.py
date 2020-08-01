@@ -45,11 +45,25 @@ def reg(uId, uClass):
         cursor.execute(regRequest, (uId, uClass))
         conn.commit()
         print("reg")
+    cursor.execute("SELECT uId, MIN(ROWID) FROM userData")
+    l3 = cursor.fetchall()
+    print(l3)
+    cursor.execute("""
+        DELETE FROM userData
+        WHERE rowid NOT IN (
+        SELECT MIN(rowid) 
+        FROM userData 
+        GROUP BY uId
+    )""")
+    conn.commit()
+
 
 # fuck this code
 
 intilisation()
-reg('id4', 'class2')
+reg('id4', 'class31')
 cursor.execute("SELECT * FROM userData")
 print (cursor.fetchall())
 conn.close()
+
+# I did it
