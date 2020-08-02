@@ -1,10 +1,10 @@
 import sqlite3
 
-conn = sqlite3.connect('dateBase.db')
-cursor = conn.cursor()
-# conn.row_factory = sqlite3.Row
 
-# it works. As a useless code
+
+
+conn = sqlite3.connect('dateBase.db', check_same_thread = False)
+cursor = conn.cursor()
 
 reregRequest = """
     UPDATE userData 
@@ -16,9 +16,11 @@ regRequest = """
     INSERT INTO userData VALUES (?,?)
 """
 
-
-
 def intilisation():
+# conn.row_factory = sqlite3.Row
+
+# it works. As a useless code
+
     try:
         cursor.execute("""CREATE TABLE userData
                     (uId text, 
@@ -27,6 +29,7 @@ def intilisation():
     except BaseException:  # couse I don't know how to fix it
         print("base hasn't created. It can already exist or this code sucks")
 
+intilisation()
 
 # help me please
 
@@ -60,10 +63,10 @@ def reg(uId, uClass):
 
 # fuck this code
 
-intilisation()
-reg('id4', 'class31')
+# reg('id4', 'class31')
 cursor.execute("SELECT * FROM userData")
 print (cursor.fetchall())
-conn.close()
+# conn.close()
+
 
 # I did it
