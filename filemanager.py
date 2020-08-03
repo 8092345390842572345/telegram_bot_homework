@@ -16,6 +16,19 @@ regRequest = """
     INSERT INTO userData VALUES (?,?)
 """
 
+getUIdRequest = """
+    SELECT uId
+    FROM userData 
+    where uClass = ?;
+"""
+
+getUClassRequest = """
+    SELECT uClass
+    FROM userData 
+    where uId = ?;
+"""
+
+
 def intilisation():
 # conn.row_factory = sqlite3.Row
 
@@ -42,7 +55,7 @@ def reg(uId, uClass):
     print("rereg")
     cursor.execute("SELECT * FROM userData")
     l2 = cursor.fetchall()
-
+    print(type(l2[0]))
     if l1 == l2:
         print("2")
         cursor.execute(regRequest, (uId, uClass))
@@ -60,6 +73,25 @@ def reg(uId, uClass):
     )""")
     conn.commit()
 
+def getUserClass(uId):
+    try:
+        cursor.execute(getUClassRequest, [(uId)])
+        h0 = cursor.fetchall()
+        print (h0)
+        h1 = h0[0][0]
+        print(h1)
+        return h1
+    except BaseException:
+        return 0
+
+def getUserId(uClass):
+    cursor.execute(getUIdRequest, [(uClass)])
+    print (cursor.fetchall())
+    return cursor.fetchall()
+
+def getStat():
+    cursor.execute("SELECT * FROM userData")
+    print (cursor.fetchall())
 
 # fuck this code
 
@@ -68,5 +100,6 @@ cursor.execute("SELECT * FROM userData")
 print (cursor.fetchall())
 # conn.close()
 
-
+getUserClass('722810009')
 # I did it
+# 722810009
