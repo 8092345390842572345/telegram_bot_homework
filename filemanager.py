@@ -1,8 +1,5 @@
 import sqlite3
 
-
-
-
 conn = sqlite3.connect('dateBase.db', check_same_thread = False)
 cursor = conn.cursor()
 
@@ -23,47 +20,36 @@ getUIdRequest = """
 """
 
 getUClassRequest = """
-    SELECT uClass
+    SELECT *
     FROM userData 
     where uId = ?;
 """
 
 
 def intilisation():
-# conn.row_factory = sqlite3.Row
-
-# it works. As a useless code
-
     try:
         cursor.execute("""CREATE TABLE userData
                     (uId text, 
                     uClass text)""")
         cursor.commit()
-    except BaseException:  # couse I don't know how to fix it
-        print("base hasn't created. It can already exist or this code sucks")
+    except BaseException:      
+        print("base hasn't created")
 
 intilisation()
 
-# help me please
 
 def reg(uId, uClass):
     cursor.execute("SELECT * FROM userData")
     l1 = cursor.fetchall()
-    print("1")
     cursor.execute(reregRequest, (uClass,uId))
     conn.commit()
-    print("rereg")
     cursor.execute("SELECT * FROM userData")
     l2 = cursor.fetchall()
-    print(type(l2[0]))
     if l1 == l2:
-        print("2")
         cursor.execute(regRequest, (uId, uClass))
         conn.commit()
-        print("reg")
     cursor.execute("SELECT uId, MIN(ROWID) FROM userData")
     l3 = cursor.fetchall()
-    print(l3)
     cursor.execute("""
         DELETE FROM userData
         WHERE rowid NOT IN (
@@ -77,29 +63,26 @@ def getUserClass(uId):
     try:
         cursor.execute(getUClassRequest, [(uId)])
         h0 = cursor.fetchall()
-        print (h0)
         h1 = h0[0][0]
-        print(h1)
         return h1
     except BaseException:
         return 0
 
 def getUserId(uClass):
     cursor.execute(getUIdRequest, [(uClass)])
-    print (cursor.fetchall())
-    return cursor.fetchall()
+    q0 = cursor.fetchall()
+    q1 = []
+    for i in range (len(q0)):
+        q1.append(q0[i][0])
+    return q1
 
 def getStat():
     cursor.execute("SELECT * FROM userData")
     print (cursor.fetchall())
 
-# fuck this code
-
-# reg('id4', 'class31')
-cursor.execute("SELECT * FROM userData")
-print (cursor.fetchall())
-# conn.close()
-
+reg('1', '12')
+reg('2', '12')
+reg('3', '12')
+reg('5', '15')
+print(getUserId('12'))
 getUserClass('722810009')
-# I did it
-# 722810009
