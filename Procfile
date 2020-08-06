@@ -1,4 +1,5 @@
-web: python bot.py
+
 ps: scale web=1
-features:enable
+web: python bot.py
 server.port=${PORT:32500}
+features:enable
