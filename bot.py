@@ -3,6 +3,8 @@ from telebot import types
 import math
 import threading
 import filemanager
+from PIL import Image
+import time
 
 lock = threading.Lock()
 filemanager.intilisation()
@@ -42,10 +44,24 @@ def handle_docs_photo(message):
     try:
         file_info = bot.get_file(message.photo[len(message.photo)-1].file_id)
         downloaded_file = bot.download_file(file_info.file_path)
-        src='/home/lex/programs/python/telegram_bot/'+file_info.file_path;
+        src='/home/lex/programs/telegram_bot/'+file_info.file_path
         with open(src, 'wb') as new_file:
            new_file.write(downloaded_file)
-        bot.reply_to(message,"Фото добавлено") 
+           new_file.close()
+        bot.reply_to(message,"Фото добавлено")
+
+        uId = message.chat.id
+        uClass = filemanager.getUserClass(uId)
+        print(uClass)
+        idList = filemanager.getUserId(uClass)
+        print(idList)
+
+        for i in range(len(idList)):
+            print(uId)
+            print(idList[i])
+            if (str(idList[i]) != str(uId)):
+
+                bot.send_photo(idList[i], open(src, 'rb'))
     except Exception as e:
         bot.reply_to(message,e )
 
@@ -67,13 +83,13 @@ def hello(message):
     filemanager.getStat()
     
 
-filemanager.getUserClass('722810009')
+
 while True:
     try:
         bot.polling(none_stop=True)
 
     except Exception as e:
-        logger.error(e)  # или просто print(e) если у вас логгера нет,
+        print(e)  # или просто print(e) если у вас логгера нет,
         # или import traceback; traceback.print_exc() для печати полной инфы
         time.sleep(15)
 filemanager.conn.close()

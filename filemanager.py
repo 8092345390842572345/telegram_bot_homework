@@ -20,7 +20,7 @@ getUIdRequest = """
 """
 
 getUClassRequest = """
-    SELECT *
+    SELECT uClass
     FROM userData 
     where uId = ?;
 """
@@ -79,10 +79,3 @@ def getUserId(uClass):
 def getStat():
     cursor.execute("SELECT * FROM userData")
     print (cursor.fetchall())
-
-reg('1', '12')
-reg('2', '12')
-reg('3', '12')
-reg('5', '15')
-print(getUserId('12'))
-getUserClass('722810009')
