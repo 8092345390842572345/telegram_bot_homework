@@ -86,11 +86,6 @@ def hello(message):
     filemanager.getStat()
     
 
-
-bot = telebot.TeleBot(token)
-
-# Здесь пишем наши хэндлеры
-
 # Проверим, есть ли переменная окружения Хероку (как ее добавить смотрите ниже)
 if "HEROKU" in list(os.environ.keys()):
     logger = telebot.logger
@@ -104,7 +99,7 @@ if "HEROKU" in list(os.environ.keys()):
     @server.route("/")
     def webhook():
         bot.remove_webhook()
-        bot.set_webhook(url="https://https://send-homework.herokuapp.com") # этот url нужно заменить на url вашего Хероку приложения
+        bot.set_webhook(url="https://https://send-homework.herokuapp.com/bot") # этот url нужно заменить на url вашего Хероку приложения
         return "?", 200
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
 else:
