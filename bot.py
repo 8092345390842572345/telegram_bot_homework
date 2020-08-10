@@ -8,7 +8,10 @@ import time
 import os
 from flask import Flask, request
 import logging
-
+try:
+    mkdir(/photos)
+excect BaseExcepction:
+    pass
 lock = threading.Lock()
 filemanager.intilisation()
 
