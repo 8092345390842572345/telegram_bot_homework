@@ -47,7 +47,7 @@ def handle_docs_photo(message):
     try:
         file_info = bot.get_file(message.photo[len(message.photo)-1].file_id)
         downloaded_file = bot.download_file(file_info.file_path)
-        src='/home/lex/programs/telegram_bot/'+file_info.file_path
+        src='/'+file_info.file_path
         with open(src, 'wb') as new_file:
            new_file.write(downloaded_file)
            new_file.close()
