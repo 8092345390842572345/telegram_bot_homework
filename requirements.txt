@@ -4,3 +4,4 @@ idna==2.10
 requests==2.24.0
 urllib3==1.25.10
 pytelegrambotapi==3.7.2
+Pillow==7.2.0
