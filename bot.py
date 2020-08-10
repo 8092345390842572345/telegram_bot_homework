@@ -10,7 +10,7 @@ from flask import Flask, request
 import logging
 try:
     mkdir("/photos")
-excect BaseExcepction:
+excepct BaseExcepction:
     pass
 lock = threading.Lock()
 filemanager.intilisation()
